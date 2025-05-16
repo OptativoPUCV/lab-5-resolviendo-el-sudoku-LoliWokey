@@ -70,33 +70,33 @@ int is_valid(Node* n) {
     return 1;
 }
 
-List* get_adj_nodes(Node* n){ 
-  List* list = createList() ;
-  int fila = -1, col = -1 ;
-  for (int f = 0 ; f < 9 && fila == -1 ; f++){
-    for (int c = 0 ; c < 9 && col == -1 ; c++){
-      if (n->sudo[f][c] == 0){
-        fila = f;
-        col = c;
-        break ;
-      }
+List* get_adj_nodes(Node* n) {
+    List* list = createList();
+    int fila = -1, col = -1;
+    
+    for (int a = 0; a < 9 && fila == -1; a++) {
+        for (int b = 0; b < 9 && col == -1; b++) {
+            if (n->sudo[a][b] == 0) {
+                fila = a;
+                col = b;
+            }
+        }
     }
-  }
-  if (fila == -1 || col == -1) return list ;
-
-  for (int k = 1 ; k <= 9 ; k++){
-    Node* copia = copy(n) ;
-    copia->sudo[fila][col] = k ;
-    if (is_valid(copia)){
-      pushBack(list, copia) ;
-    }else{
-      free(copia) ;
+    
+    if (fila == -1 || col == -1) return list;
+    
+    for (int k = 1; k <= 9; k++) {
+        Node* copia = copy(n);
+        copia->sudo[fila][col] = k;
+        if (is_valid(copia)) {
+            pushBack(list, copia);
+        } else {
+            free(copia);
+        }
     }
-
-  }
-  return list;
+    
+    return list;
 }
-
 
 int is_final(Node* n){
     return 0;
